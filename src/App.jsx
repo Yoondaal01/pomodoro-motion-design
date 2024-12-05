@@ -1,35 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import CharacterAnimation from './CharacterAnimation';
+import CircularProgressBar from './CircularProgressBar';
+import Timer from './Timer';
+import BreakSettings from './BreakSettings';
+import TypographyAnimation from './TypographyAnimation';
+import { useState } from 'react';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [phase, setPhase] = useState('waiting'); // 'waiting', 'studying', 'break'
+  const [timeLeft, setTimeLeft] = useState(25 * 60); // in seconds
+  const [breakDuration, setBreakDuration] = useState(5 * 60);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="app">
+      <TypographyAnimation phase={phase} />
+      <CharacterAnimation phase={phase} />
+      <CircularProgressBar timeLeft={timeLeft} totalTime={phase === 'break' ? breakDuration : 25 * 60} />
+      <Timer
+        timeLeft={timeLeft}
+        setTimeLeft={setTimeLeft}
+        phase={phase}
+        setPhase={setPhase}
+        breakDuration={breakDuration}
+      />
+      <BreakSettings
+        breakDuration={breakDuration}
+        setBreakDuration={setBreakDuration}
+      />
+    </div>
+  );
 }
 
-export default App
+export default App;
