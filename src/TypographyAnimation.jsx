@@ -4,13 +4,13 @@ const TypographyAnimation = ({ phase }) => {
   if (phase !== 'break') return null;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.5 }}
-      animate={{ opacity: 1, scale: 1 }}
+    <motion.h1
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1 }}
     >
-      <h1>Time for a Break!</h1>
-    </motion.div>
+      Time for a Break!
+    </motion.h1>
   );
 };
 

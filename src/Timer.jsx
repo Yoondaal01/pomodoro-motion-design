@@ -1,4 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import confetti from 'canvas-confetti';
+
+const triggerConfetti = () => {
+  confetti({
+    particleCount: 100,
+    spread: 70,
+    origin: { y: 0.6 },
+  });
+};
 
 const Timer = ({ timeLeft, setTimeLeft, phase, setPhase, breakDuration }) => {
   const [isRunning, setIsRunning] = useState(false);
