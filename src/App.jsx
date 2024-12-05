@@ -10,8 +10,19 @@ function App() {
   const [timeLeft, setTimeLeft] = useState(25 * 60); // in seconds
   const [breakDuration, setBreakDuration] = useState(5 * 60);
 
+  const phaseColors = {
+    waiting: '#f0f8ff',
+    studying: '#ffebcd',
+    break: '#d1ffd6',
+  };  
+
   return (
-    <div className="app">
+    <motion.div
+  className="app"
+  animate={{ backgroundColor: phaseColors[phase] }}
+  transition={{ duration: 0.5 }}
+  style={{ height: '100vh', width: '100%' }}
+>
       <TypographyAnimation phase={phase} />
       <CharacterAnimation phase={phase} />
       <CircularProgressBar timeLeft={timeLeft} totalTime={phase === 'break' ? breakDuration : 25 * 60} />
@@ -26,7 +37,7 @@ function App() {
         breakDuration={breakDuration}
         setBreakDuration={setBreakDuration}
       />
-    </div>
+    </motion.div>
   );
 }
 
