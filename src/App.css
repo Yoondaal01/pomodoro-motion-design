@@ -1,8 +1,71 @@
-.app {
+/* Input Field Styling */
+input {
+  width: 60px;
+  height: 30px;
+  font-size: 1rem;
+  margin-left: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+input:focus {
+  outline: none;
+  border-color: #9eb888;
+}
+
+
+/* Phase Text Styling */
+.phase-text {
+  font-size: 2rem;
+  color: #c49fab;
+  margin-bottom: 20px;
+}
+
+/* Button Styling */
+.start-button,
+.early-break-button,
+.stop-button {
+  width: 100px;
+  height: 40px;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.start-button {
+  background-color: #9eb888;
+  color: white;
+}
+
+.early-break-button {
+  background-color: #f4e3d1;
+  color: #9e6a4a;
+}
+
+.stop-button {
+  background-color: #f4d4d4;
+  color: #9e4a4a;
+}
+
+/* Button Container */
+.button-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  height: 100%;
-  font-family: "Arial", sans-serif;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.circular-progress {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 6px solid transparent; /* Thinner border */
+  background: conic-gradient(#9eb888 50%, #ededed 50% 100%);
+  margin: 0 auto;
 }
