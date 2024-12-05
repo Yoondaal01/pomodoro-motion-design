@@ -1,43 +1,37 @@
-import CharacterAnimation from './CharacterAnimation';
-import CircularProgressBar from './CircularProgressBar';
-import Timer from './Timer';
-import BreakSettings from './BreakSettings';
-import TypographyAnimation from './TypographyAnimation';
-import { useState } from 'react';
+import React, { useState } from "react";
+import CircularTimer from "./components/CircularTimer";
+import CharacterAnimation from "./components/CharacterAnimation";
+import TimerControls from "./components/TimerControls";
+import PhaseLabel from "./components/PhaseLabel";
+import Background from "./components/Background";
 
 function App() {
-  const [phase, setPhase] = useState('waiting'); // 'waiting', 'studying', 'break'
-  const [timeLeft, setTimeLeft] = useState(25 * 60); // in seconds
-  const [breakDuration, setBreakDuration] = useState(5 * 60);
-
-  const phaseColors = {
-    waiting: '#f0f8ff',
-    studying: '#ffebcd',
-    break: '#d1ffd6',
-  };  
+  const [phase, setPhase] = useState("waiting"); // 'waiting', 'studying', 'break'
+  const [timeLeft, setTimeLeft] = useState(25 * 60); // Time in seconds
+  const [breakDuration, setBreakDuration] = useState(5 * 60); // Break time in seconds
+  const [timerDuration, setTimerDuration] = useState(25 * 60); // Total timer duration
 
   return (
-    <motion.div
-  className="app"
-  animate={{ backgroundColor: phaseColors[phase] }}
-  transition={{ duration: 0.5 }}
-  style={{ height: '100vh', width: '100%' }}
->
-      <TypographyAnimation phase={phase} />
-      <CharacterAnimation phase={phase} />
-      <CircularProgressBar timeLeft={timeLeft} totalTime={phase === 'break' ? breakDuration : 25 * 60} />
-      <Timer
-        timeLeft={timeLeft}
-        setTimeLeft={setTimeLeft}
-        phase={phase}
-        setPhase={setPhase}
-        breakDuration={breakDuration}
-      />
-      <BreakSettings
-        breakDuration={breakDuration}
-        setBreakDuration={setBreakDuration}
-      />
-    </motion.div>
+    <Background phase={phase}>
+      <div className="app">
+        <PhaseLabel phase={phase} />
+        <CircularTimer
+          timeLeft={timeLeft}
+          timerDuration={timerDuration}
+          phase={phase}
+          setTimerDuration={setTimerDuration}
+        />
+        <CharacterAnimation phase={phase} />
+        <TimerControls
+          phase={phase}
+          setPhase={setPhase}
+          timeLeft={timeLeft}
+          setTimeLeft={setTimeLeft}
+          timerDuration={timerDuration}
+          breakDuration={breakDuration}
+        />
+      </div>
+    </Background>
   );
 }
 

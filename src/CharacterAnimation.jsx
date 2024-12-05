@@ -1,21 +1,21 @@
-import { motion } from 'framer-motion';
+import React from "react";
+import "./CharacterAnimation.css";
 
 const CharacterAnimation = ({ phase }) => {
-  const animations = {
-    waiting: { scale: [1, 1.05, 1], transition: { duration: 1.5, repeat: Infinity } },
-    studying: { x: [0, 10, -10, 0], transition: { duration: 1, repeat: Infinity } },
-    break: { rotate: [0, 5, -5, 0], transition: { duration: 1, repeat: Infinity } },
+  const characterImages = {
+    waiting: "/images/duck-happy.png",
+    studying: "/images/duck-studying.png",
+    break: "/images/duck-break.png",
   };
 
   return (
-    <motion.div
-      animate={animations[phase] || {}}
-      className="character-animation"
-    >
-      {phase === 'waiting' && <img src="/waiting-character.png" alt="Waiting" />}
-      {phase === 'studying' && <img src="/studying-character.png" alt="Studying" />}
-      {phase === 'break' && <img src="/break-character.png" alt="Break" />}
-    </motion.div>
+    <div className="character-animation">
+      <img
+        src={characterImages[phase]}
+        alt={phase}
+        style={{ width: "150px", height: "150px" }}
+      />
+    </div>
   );
 };
 

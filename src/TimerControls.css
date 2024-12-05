@@ -1,0 +1,38 @@
+.timer-controls {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .timer-controls button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+  }
+  
+  .timer-controls .start-button {
+    background-color: #82c91e;
+    color: white;
+  }
+  
+  .timer-controls .stop-button {
+    background-color: #ffa8a8;
+    color: white;
+  }
+  
+  .timer-controls .early-break-button {
+    background-color: #ffd43b;
+    color: white;
+  }
+  
+  .timer-controls button:hover {
+    transform: scale(1.1);
+  }
+  
+  .timer-controls button:active {
+    transform: scale(0.95);
+  }
+  
