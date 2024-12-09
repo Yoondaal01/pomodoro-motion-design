@@ -7,7 +7,9 @@
 
 /* Outer Background */
 body {
-  margin: 0;
+  font-family: Helvetica,sans-serif;
+  font-weight: 600;
+  font-style: oblique;
   overflow: hidden;
   background-color: #FDF5E6; /* Light beige background */
 }
@@ -20,7 +22,7 @@ body {
   margin: auto;
   background: #ffffff; /* Constant background for timer container */
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(255, 244, 157, 0.221);
   padding: 20px;
   z-index: 1; /* Ensure it stays above the outer background */
   text-align: center; /* Center align the content */
@@ -144,7 +146,7 @@ h1 {
   align-items: center;
   gap: 10px;
   font-size: 18px;
-  color: #2E8B57; /* Dark green for labels */
+  color: #1e1e1e; /* Dark green for labels */
   margin-bottom: 20px;
   width: 100%; /* Full width for better alignment */
 }
@@ -154,7 +156,7 @@ h1 {
   font-size: 20px; /* Larger font size for visibility */
   font-weight: bold;
   margin-bottom: 5px;
-  color: #2E8B57; /* Green for the slider label */
+  color: #1e1e1e; /* Green for the slider label */
 }
 
 /* Slider Input */
@@ -163,7 +165,7 @@ h1 {
   appearance: none; /* Standard property for compatibility */
   width: 80%; /* Adjust slider width */
   height: 10px; /* Adjust slider thickness */
-  background: #ddd; /* Slider track background */
+  background: #F9F1DF; /* Slider track background */
   border-radius: 5px;
   outline: none;
   transition: background 0.3s;
@@ -174,7 +176,7 @@ h1 {
   appearance: none;
   width: 20px;
   height: 20px;
-  background: #FF6347; /* Tomato red for the thumb */
+  background: #CB3A2D; /* Tomato red for the thumb */
   border-radius: 50%;
   cursor: pointer;
   transition: background 0.3s;
@@ -191,15 +193,15 @@ h1 {
 /* Start Button */
 .timer-setup button {
   padding: 12px 25px; /* Adjust padding */
-  background-color: #28a745;
+  background-color: #1e1e1e;
   color: #fff;
   border: none;
-  border-radius: 10px; /* Slightly rounded corners */
+  border-radius: 20px; /* Slightly rounded corners */
   cursor: pointer;
   font-size: 18px; /* Increase font size */
   transition: background-color 0.3s;
 }
 
 .timer-setup button:hover {
-  background-color: #218838;
+  background-color: #616161;
 }

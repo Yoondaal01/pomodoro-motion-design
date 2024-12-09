@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import Timer from "./components/Timer";
 import { motion } from "framer-motion";
 
+
+
+
 const App = () => {
   const [phase, setPhase] = useState("waiting"); // "waiting", "work", "break"
   const [workDuration, setWorkDuration] = useState(25); // in minutes
