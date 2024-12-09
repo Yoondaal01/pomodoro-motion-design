@@ -1,39 +1,69 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import ProgressCircle from "./ProgressCircle";
+import TimerControls from "./TimerControls";
+import AnimationStage from "./AnimationStage";
+import { motion } from "framer-motion";
 
-const Timer = ({ duration, onEnd }) => {
-  const [timeLeft, setTimeLeft] = useState(duration);
 
-  // Reset the timer whenever the `duration` prop changes
+
+const Timer = ({ phase, setPhase, workDuration, breakDuration }) => {
+  const [timeLeft, setTimeLeft] = useState(
+    phase === "work" ? workDuration * 60 : breakDuration * 60
+  );
+
   useEffect(() => {
-    setTimeLeft(duration);
-  }, [duration]);
-
-  useEffect(() => {
-    if (timeLeft <= 0) {
-      onEnd();
-      return;
+    let timer;
+    if (timeLeft > 0) {
+      timer = setInterval(() => {
+        setTimeLeft((prevTime) => prevTime - 1);
+      }, 1000);
+    } else {
+      clearInterval(timer);
+      if (phase === "work") {
+        setPhase("break");
+        setTimeLeft(breakDuration * 60);
+      } else if (phase === "break") {
+        setPhase("waiting");
+      }
     }
-    const timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
     return () => clearInterval(timer);
-  }, [timeLeft, onEnd]);
+  }, [timeLeft, phase, setPhase, breakDuration]);
 
-  const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes.toString().padStart(2, "0")}:${remainingSeconds
-      .toString()
-      .padStart(2, "0")}`;
+  const handleEarlyBreak = () => {
+    setPhase("break");
+    setTimeLeft(breakDuration * 60);
   };
 
   return (
-    <div
-      style={{
-        fontSize: "3rem",
-        color: "#9EB888",
-        marginBottom: "20px",
-      }}
-    >
-      {formatTime(timeLeft)}
+    <div className="timer">
+      <div className="progress-container">
+        {/* Progress Circle */}
+        <div className="progress-wrapper">
+          <ProgressCircle
+            timeLeft={timeLeft}
+            totalTime={phase === "work" ? workDuration * 60 : breakDuration * 60}
+          />
+          {/* Animation in the center */}
+          <div className="animation-wrapper">
+            <AnimationStage phase={phase} />
+          </div>
+        </div>
+        <h1 className="timer-display">
+  <motion.div
+    initial={{ opacity: 0, scale: 0.8 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.3 }}
+  >
+    {Math.floor(timeLeft / 60)}:{String(timeLeft % 60).padStart(2, "0")}
+  </motion.div>
+</h1>
+      </div>
+      {/* Buttons */}
+      <TimerControls
+        phase={phase}
+        onEarlyBreak={handleEarlyBreak}
+        onLeave={() => setPhase("waiting")}
+      />
     </div>
   );
 };

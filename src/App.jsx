@@ -1,136 +1,81 @@
 import React, { useState } from "react";
 import Timer from "./components/Timer";
-import CircularProgressBar from "./components/CircularProgressBar";
-import "./App.css";
+import { motion } from "framer-motion";
 
 const App = () => {
-  const [phase, setPhase] = useState("waiting");
-  const [workDuration, setWorkDuration] = useState(1500); // Default: 25 minutes
-  const [breakDuration, setBreakDuration] = useState(300); // Default: 5 minutes
-  const [currentTimer, setCurrentTimer] = useState(workDuration);
+  const [phase, setPhase] = useState("waiting"); // "waiting", "work", "break"
+  const [workDuration, setWorkDuration] = useState(25); // in minutes
+  const [breakDuration, setBreakDuration] = useState(5); // in minutes
 
-  const handleTimerEnd = () => {
-    if (phase === "work") {
-      setCurrentTimer(breakDuration); // Reset timer to break duration
-      setPhase("break"); // Switch to break phase
-    } else if (phase === "break") {
-      setCurrentTimer(workDuration); // Reset timer to work duration
-      setPhase("waiting"); // Return to waiting phase
-    }
+  // Define outer background colors for each phase
+  const backgroundColors = {
+    waiting: "#f4f4f4", // Light gray for waiting phase
+    work: "#FFEBEE",    // Soft red for work phase
+    break: "#E8F5E9",   // Light green for break phase
   };
-
-  const renderContent = () => {
-    if (phase === "waiting") {
-      return (
-        <div>
-          <h2 className="phase-text">SET YOUR TIMER</h2>
-          {/* Inputs for Work and Break Duration */}
-          <div style={{ marginBottom: "20px" }}>
-            <label htmlFor="work-duration" style={{ fontSize: "1.2rem" }}>
-              Work Duration (10–120 mins):
-            </label>
-            <input
-              id="work-duration"
-              type="number"
-              min="10"
-              max="120"
-              value={workDuration / 60}
-              onChange={(e) => setWorkDuration(e.target.value * 60)}
-              className="input"
-            />
-          </div>
-          <div style={{ marginBottom: "20px" }}>
-            <label htmlFor="break-duration" style={{ fontSize: "1.2rem" }}>
-              Break Duration (1–30 mins):
-            </label>
-            <input
-              id="break-duration"
-              type="number"
-              min="1"
-              max="30"
-              value={breakDuration / 60}
-              onChange={(e) => setBreakDuration(e.target.value * 60)}
-              className="input"
-            />
-          </div>
-          <CircularProgressBar progress={0} phase="waiting" />
-          <button
-            onClick={() => {
-              setCurrentTimer(workDuration);
-              setPhase("work");
-            }}
-            className="start-button"
-          >
-            start
-          </button>
-        </div>
-      );
-    }
-  
-    if (phase === "work") {
-      const progress = ((workDuration - currentTimer) / workDuration) * 100;
-  
-      return (
-        <div>
-          <h2 className="phase-text">STUDY TIME!</h2>
-          <Timer duration={currentTimer} onEnd={handleTimerEnd} />
-          <CircularProgressBar progress={progress} phase="work" />
-          <div className="button-container">
-            <button
-              onClick={() => {
-                setCurrentTimer(breakDuration);
-                setPhase("break");
-              }}
-              className="early-break-button"
-            >
-              early break
-            </button>
-            <button
-              onClick={() => setPhase("waiting")}
-              className="stop-button"
-            >
-              stop
-            </button>
-          </div>
-        </div>
-      );
-    }
-  
-    if (phase === "break") {
-      const progress = ((breakDuration - currentTimer) / breakDuration) * 100;
-  
-      return (
-        <div>
-          <h2 className="phase-text">BREAK TIME!</h2>
-          <Timer duration={currentTimer} onEnd={handleTimerEnd} />
-          <CircularProgressBar progress={progress} phase="break" />
-          <div className="button-container">
-            <button
-              onClick={() => {
-                setCurrentTimer(workDuration);
-                setPhase("waiting");
-              }}
-              className="start-button"
-            >
-              start
-            </button>
-            <button
-              onClick={() => setPhase("waiting")}
-              className="stop-button"
-            >
-              stop
-            </button>
-          </div>
-        </div>
-      );
-    }
-  };
-  
 
   return (
-    <div style={{ textAlign: "center", fontFamily: "Arial, sans-serif" }}>
-      {renderContent()}
-    </div>
+    <motion.div
+      initial={{ backgroundColor: backgroundColors.waiting }}
+      animate={{ backgroundColor: backgroundColors[phase] }}
+      transition={{ duration: 1 }}
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        zIndex: -1, // Ensure it stays behind other content
+      }}
+    >
+      <div className="app">
+        {phase === "waiting" ? (
+          <div className="timer-setup">
+            {/* Work Duration Slider */}
+            <div className="slider-container">
+              <label htmlFor="work-slider">
+                Work Duration: {workDuration} minutes
+              </label>
+              <input
+                id="work-slider"
+                type="range"
+                min="10"
+                max="120"
+                step="5"
+                value={workDuration}
+                onChange={(e) => setWorkDuration(Number(e.target.value))}
+              />
+            </div>
+
+            {/* Break Duration Slider */}
+            <div className="slider-container">
+              <label htmlFor="break-slider">
+                Break Duration: {breakDuration} minutes
+              </label>
+              <input
+                id="break-slider"
+                type="range"
+                min="5"
+                max="30"
+                step="1"
+                value={breakDuration}
+                onChange={(e) => setBreakDuration(Number(e.target.value))}
+              />
+            </div>
+
+            {/* Start Button */}
+            <button onClick={() => setPhase("work")}>Start Timer</button>
+          </div>
+        ) : (
+          <Timer
+            phase={phase}
+            setPhase={setPhase}
+            workDuration={workDuration}
+            breakDuration={breakDuration}
+          />
+        )}
+      </div>
+    </motion.div>
   );
 };
 

@@ -1,71 +1,205 @@
-/* Input Field Styling */
-input {
-  width: 60px;
-  height: 30px;
-  font-size: 1rem;
-  margin-left: 10px;
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-input:focus {
-  outline: none;
-  border-color: #9eb888;
+/* Outer Background */
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #FDF5E6; /* Light beige background */
 }
 
-
-/* Phase Text Styling */
-.phase-text {
-  font-size: 2rem;
-  color: #c49fab;
-  margin-bottom: 20px;
+/* App Container */
+.app {
+  position: relative;
+  top: 20%;
+  max-width: 500px;
+  margin: auto;
+  background: #ffffff; /* Constant background for timer container */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  z-index: 1; /* Ensure it stays above the outer background */
+  text-align: center; /* Center align the content */
 }
 
-/* Button Styling */
-.start-button,
-.early-break-button,
-.stop-button {
-  width: 100px;
-  height: 40px;
-  font-size: 1rem;
-  padding: 10px;
-  border-radius: 25px;
-  border: none;
-  cursor: pointer;
-  margin-top: 20px;
+/* Progress Circle and Animation */
+.progress-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px; /* Space between circle and timer text */
 }
 
-.start-button {
-  background-color: #9eb888;
-  color: white;
-}
-
-.early-break-button {
-  background-color: #f4e3d1;
-  color: #9e6a4a;
-}
-
-.stop-button {
-  background-color: #f4d4d4;
-  color: #9e4a4a;
-}
-
-/* Button Container */
-.button-container {
+.progress-wrapper {
+  position: relative;
+  width: 200px; /* Increase size */
+  height: 200px; /* Increase size */
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
-  margin-top: 20px;
 }
 
-.circular-progress {
-  position: relative;
+.animation-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 22px; /* Increase font size */
+  font-weight: bold;
+  color: #333;
+  pointer-events: none;
+  line-height: 1.2;
+}
+
+/* Progress Circle */
+.progress-circle {
   width: 200px;
   height: 200px;
+}
+
+.progress-circle svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.progress-circle circle:first-child {
+  stroke: #ddd;
+}
+
+.progress-circle circle:last-child {
+  stroke: #007bff;
+  transition: stroke-dashoffset 1s linear;
+}
+
+/* Timer Text */
+h1 {
+  font-size: 28px; /* Make the timer text larger */
+  font-weight: bold;
+  color: #000;
+}
+
+/* Timer Controls */
+.timer-controls {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  gap: 15px; /* Space between buttons */
+  align-items: center;
+}
+
+.timer-controls button {
+  width: 150px; /* Make buttons wider */
+  padding: 12px 20px; /* Increase button size */
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px; /* Increase font size */
+  transition: background-color 0.3s;
+}
+
+.timer-controls button:hover {
+  background-color: #0056b3;
+}
+
+.timer-controls button:nth-child(2) {
+  background-color: #dc3545;
+}
+
+.timer-controls button:nth-child(2):hover {
+  background-color: #c82333;
+}
+
+/* Timer Setup */
+.timer-setup {
+  display: flex;
+  flex-direction: column;
+  gap: 30px; /* Increase spacing */
+  font-size: 16px;
+  align-items: center; /* Center the sliders */
+}
+
+.timer-display {
+  font-size: 64px; /* Make the timer larger */
+  font-weight: bold; /* Bold numbers */
+  color: #FF6347; /* Tomato red color */
+  text-align: center; /* Center the text */
+  letter-spacing: 2px; /* Add spacing between numbers */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Add a subtle shadow */
+  margin: 20px 0; /* Add spacing above and below */
+}
+
+
+/* Slider Container */
+.slider-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  color: #2E8B57; /* Dark green for labels */
+  margin-bottom: 20px;
+  width: 100%; /* Full width for better alignment */
+}
+
+/* Slider Label */
+.slider-container label {
+  font-size: 20px; /* Larger font size for visibility */
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #2E8B57; /* Green for the slider label */
+}
+
+/* Slider Input */
+.slider-container input[type="range"] {
+  -webkit-appearance: none; /* Remove default styles */
+  appearance: none; /* Standard property for compatibility */
+  width: 80%; /* Adjust slider width */
+  height: 10px; /* Adjust slider thickness */
+  background: #ddd; /* Slider track background */
+  border-radius: 5px;
+  outline: none;
+  transition: background 0.3s;
+}
+
+.slider-container input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Remove default thumb styles */
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #FF6347; /* Tomato red for the thumb */
   border-radius: 50%;
-  border: 6px solid transparent; /* Thinner border */
-  background: conic-gradient(#9eb888 50%, #ededed 50% 100%);
-  margin: 0 auto;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.slider-container input[type="range"]::-webkit-slider-thumb:hover {
+  background: #E74C3C; /* Slightly darker red on hover */
+}
+
+.slider-container input[type="range"]:focus {
+  background: #ccc; /* Change track color when focused */
+}
+
+/* Start Button */
+.timer-setup button {
+  padding: 12px 25px; /* Adjust padding */
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 10px; /* Slightly rounded corners */
+  cursor: pointer;
+  font-size: 18px; /* Increase font size */
+  transition: background-color 0.3s;
+}
+
+.timer-setup button:hover {
+  background-color: #218838;
 }
