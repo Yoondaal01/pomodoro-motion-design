@@ -76,47 +76,51 @@ body {
 }
 
 .progress-circle circle:last-child {
-  stroke: #007bff;
+  stroke: #CB3A2D;
   transition: stroke-dashoffset 1s linear;
 }
 
 /* Timer Text */
 h1 {
-  font-size: 28px; /* Make the timer text larger */
-  font-weight: bold;
-  color: #000;
+  font-family: "Audiowide", sans-serif;
+  font-weight: 400;
+  font-size: 28px; 
+  font-style: normal;
+  color: #1e1e1e;
 }
 
 /* Timer Controls */
 .timer-controls {
   display: flex;
-  flex-direction: column; /* Stack buttons vertically */
+  flex-direction: row; /* Stack buttons vertically */
   gap: 15px; /* Space between buttons */
   align-items: center;
+  justify-content: center;
 }
 
 .timer-controls button {
   width: 150px; /* Make buttons wider */
   padding: 12px 20px; /* Increase button size */
-  background-color: #007bff;
+  background-color: #8EBC82;
   color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 20px;
   cursor: pointer;
   font-size: 16px; /* Increase font size */
+  font-weight: 600;
   transition: background-color 0.3s;
 }
 
 .timer-controls button:hover {
-  background-color: #0056b3;
+  background-color: #6f9666;
 }
 
 .timer-controls button:nth-child(2) {
-  background-color: #dc3545;
+  background-color: #CB3A2D;
 }
 
 .timer-controls button:nth-child(2):hover {
-  background-color: #c82333;
+  background-color: #E74C3C;
 }
 
 /* Timer Setup */
@@ -129,14 +133,16 @@ h1 {
 }
 
 .timer-display {
-  font-size: 64px; /* Make the timer larger */
-  font-weight: bold; /* Bold numbers */
-  color: #FF6347; /* Tomato red color */
-  text-align: center; /* Center the text */
-  letter-spacing: 2px; /* Add spacing between numbers */
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Add a subtle shadow */
-  margin: 20px 0; /* Add spacing above and below */
+  font-family: "Saira Stencil One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 64px;
+  color: #1e1e1e; 
+  text-align: center; 
+  letter-spacing: 2px;
+  margin: 20px 0; 
 }
+
 
 
 /* Slider Container */

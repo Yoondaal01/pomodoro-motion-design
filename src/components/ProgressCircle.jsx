@@ -28,8 +28,8 @@ const ProgressCircle = ({ timeLeft, totalTime }) => {
         cx="100"
         cy="100"
         r={radius}
-        stroke="#007bff"
-        strokeWidth="10"
+        stroke="#8EBC82"
+        strokeWidth="15"
         fill="none"
         strokeDasharray={circumference} // Total length of the circle
         strokeDashoffset={circumference} // Start from full circle
